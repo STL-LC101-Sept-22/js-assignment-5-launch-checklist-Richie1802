@@ -2,12 +2,12 @@
 require('isomorphic-fetch');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
-    console.log(document.getElemetById("missionTarget"))
+    console.log(document.getElementById("missionTarget"))
     let missionTarget = document.getElementById("missionTarget")
     missionTarget.innerHTML = `<h2>Mission Destination</h2>
     <ol>
         <li>Name: ${name}</li>
-        <li>Diameter: ${Diameter}$</li>
+        <li>diameter: ${diameter}$</li>
         <li>Star: ${star}</li>
         <li>Distance from Earth: ${distance}</li>
         <li>Number of Moons: ${moons} </li>
@@ -28,13 +28,12 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 }
 
 function validateInput(testInput) {
-    let testInput = document.querySelector("input[name=username]");
-         let teamName = document.querySelector("input[name=team]");
-         if (testInput.value === "" ){
+   let intoNumber = Number(testInput);
+         if (testInput === "" ){
             return "Empty";
-         } else if (isNaN(testInput) === true ){
+         } else if (isNaN(intoNumber)  ){
             return "Not a Number";
-        } else if (isNaN(testInput) === false ){
+        } else if (isNaN(intoNumber) === false ){
             return "Is a Number";
         };
     }
@@ -55,14 +54,14 @@ function formSubmission(document, pilot, copilot, fuelLevel, cargoLevel) {
     || validateInput(fuelLevel.value) === "Not a Number"
     || validateInput(cargoLevel.value) === "Not a Number") {
         alert("Invalid input!");
-        
+    } 
         else if (validateInput(fuelLevel) === 'Not a Number' || validateInput(cargoLevel) === 'Not a Number') {
         alert("Please enter numerical values for Fuel Level and Cargo Mass");
     } else if (validateInput(pilot)===`Is a Number`||validateInput(copilot)===`Is a Number`) {
         alert('Please do not enter numbers for name of pilot or co-pilot');
     } else {
-        pilotStatus.innerHTML = `Pilot: ${pilot.value}`;
-        copilotStatus.innerHTML = `Co-pilot: ${copilot.value}`
+        pilotStatus.innerHTML = `Pilot: ${pilot.value} is ready`;
+        copilotStatus.innerHTML = `Co-pilot: ${copilot.value} is ready`
         if (fuelLevel.value < 10000){
             fuelStatus.innerHTML =  "Fuel level is too low for takeoff!";
             faultyItems.style.visibility = "visible";
@@ -85,10 +84,10 @@ function formSubmission(document, pilot, copilot, fuelLevel, cargoLevel) {
 async function myFetch() {
     let planetsReturned;
 
-    planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json).then( function(response");{
-        return Response.json()
-    };
-    console.log(planetsReturned);
+    planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response){
+        return response.json()
+    });
+    
     return planetsReturned;
 }
 
